@@ -1,0 +1,33 @@
+<section class="search">
+  <div class="search-row">
+    <input
+      pInputText
+      type="text"
+      class="search-input"
+      placeholder="Search and explore..."
+      [ngModel]="searchValue()"
+      (ngModelChange)="searchValue.set($event);"
+    />
+    <a
+      pButton
+      type="button"
+      label="Search"
+      icon="pi pi-search"
+      class="p-button"
+      (click)="searchMovies()"
+    ></a>
+  </div>
+
+  <div class="movies-container">
+    @if (movies().length > 0) {
+    <h1 class="title">Search result for: {{value()}}</h1>
+    } @else {
+    <h1 class="title">Not Found</h1>
+    }
+    <div class="movies">
+      @for (movie of movies(); track movie) {
+      <app-movie-card [movie]="movie"></app-movie-card>
+      }
+    </div>
+  </div>
+</section>

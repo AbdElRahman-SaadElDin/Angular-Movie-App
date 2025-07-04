@@ -1,0 +1,40 @@
+<p-card class="movie-card" [style]="{ width: '14rem' }" header="">
+  <div class="card-image">
+    <img
+      [src]="'https://image.tmdb.org/t/p/w500/' + movie().poster_path"
+      [alt]="movie().title"
+      class="poster"
+    />
+    <div class="rating-badge">
+      <svg class="progress-ring" width="44" height="44">
+        <circle
+          class="progress-ring__circle"
+          [attr.stroke]="getRatingColor(votePercent())"
+          stroke-width="4"
+          fill="transparent"
+          [attr.r]="radius"
+          cx="22"
+          cy="22"
+          [attr.stroke-dasharray]="progress + ' ' + progress"
+          [attr.stroke-dashoffset]="progressPercentage"
+        />
+      </svg>
+      <div class="rating-text">{{votePercent()}}<sup>%</sup></div>
+    </div>
+  </div>
+
+  <div class="card-content">
+    <div class="info-with-fav">
+      <div class="info">
+        <h3>{{movie().title}}</h3>
+        <p class="release-date">{{movie().release_date}}</p>
+      </div>
+      <a (click)="onClickFavorite()" class="fav-link">
+        <i
+          class="pi pi-heart-fill favorite-icon"
+          [ngStyle]="{ color: isFavorite() ? '#FFD600' : '#ccc' }"
+        ></i>
+      </a>
+    </div>
+  </div>
+</p-card>

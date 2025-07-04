@@ -1,0 +1,64 @@
+:host ::ng-deep .p-menubar {
+  background: #ffe353 !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 1.5rem;
+}
+
+:host ::ng-deep .p-menubar-item {
+  color: #222 !important;
+}
+
+:host ::ng-deep .p-menubar .p-menubar-root-list > .p-menuitem:last-child {
+  margin-left: auto;
+}
+
+:host ::ng-deep .p-menubar .p-menubar-end {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+:host ::ng-deep .watchlist-badge {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  gap: 0.3rem;
+  color: #222;
+  font-weight: 500;
+  position: relative;
+  margin-right: 1.5rem;
+  cursor: pointer;
+}
+
+:host ::ng-deep .watchlist-badge .pi-heart-fill {
+  color: #222;
+  background: #ffe353;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  padding: 0.2rem;
+  position: relative;
+}
+
+:host ::ng-deep .watchlist-badge .p-badge {
+  position: absolute;
+  top: -1.5rem;
+  right: -1.5rem;
+  background: #222 !important;
+  color: #ffe353 !important;
+  font-weight: bold;
+  font-size: 1rem;
+  min-width: 2rem;
+  min-height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+:host ::ng-deep .watchlist-badge span.label {
+  margin-left: 0.7rem;
+  font-size: 2rem;
+  font-weight: 500;
+}

@@ -1,0 +1,11 @@
+<p-menubar [model]="items()" class="navbar-menubar">
+  <ng-template pTemplate="end">
+    <a class="watchlist-badge" [routerLink]="['/watchlist']">
+      <i class="pi pi-heart-fill"></i>
+      <span>watchlist</span>
+      @if (watchList.watchCount() > 0) {
+      <span class="p-badge">{{watchList.watchCount()}}</span>
+      }
+    </a>
+  </ng-template>
+</p-menubar>
