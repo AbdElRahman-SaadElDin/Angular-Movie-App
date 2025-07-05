@@ -1,4 +1,13 @@
-import { Component, inject, input, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  inject,
+  input,
+  OnInit,
+  Query,
+  signal,
+  OnDestroy,
+} from '@angular/core';
+import { Subscription } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
 import { HttpMovies } from '../../services/http-movies';
 import { MovieCard } from '../movie-card/movie-card';
@@ -11,37 +20,43 @@ import { Router, ActivatedRoute } from '@angular/router';
   templateUrl: './search-page.html',
   styleUrl: './search-page.scss',
 })
-export class SearchPage implements OnInit {
-  // readonly query = input<string>('');
+export class SearchPage implements OnInit, OnDestroy {
+  private langSub?: Subscription;
+  readonly query = input<string>('');
+  localQuery = signal(this.query());
   private MovieHttp = inject(HttpMovies);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   searchValue = signal<string>('');
   movies = signal<any[]>([]);
-  value = signal<string>('');
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const query = params.get('query') || '';
       this.searchValue.set(query);
-      this.value.set(query);
+      this.localQuery.set(query);
+      this.searchMovies();
+    });
+    this.langSub = this.MovieHttp.language$.subscribe(() => {
       this.searchMovies();
     });
   }
 
+  ngOnDestroy() {
+    this.langSub?.unsubscribe();
+  }
+
   searchMovies(): void {
-    const value = this.searchValue().trim();
-    this.value.set(value);
-    const query = this.route.snapshot.paramMap.get('query') || '';
-    if (value !== query) {
-      this.router.navigate(['/search', value]);
+    if (this.searchValue() !== this.localQuery()) {
+      this.localQuery.set(this.searchValue());
+      this.router.navigate(['/search', this.localQuery()]);
       return;
     }
-    if (!value) {
+    if (!this.localQuery()) {
       this.movies.set([]);
       return;
     }
-    this.MovieHttp.getSearchedMovies(value).subscribe({
+    this.MovieHttp.getSearchedMovies(this.localQuery()).subscribe({
       next: (data: any) => {
         this.movies.set(data.results);
       },

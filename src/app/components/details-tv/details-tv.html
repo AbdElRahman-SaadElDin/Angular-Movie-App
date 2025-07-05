@@ -1,0 +1,65 @@
+<div class="details-container">
+  <div class="details-poster">
+    <img
+      [src]="'https://image.tmdb.org/t/p/w500/' + movie().poster_path"
+      [alt]="movie().title"
+    />
+  </div>
+  <div class="details-content">
+    <h1 class="details-title">{{ movie().name }}</h1>
+    <div class="details-date">
+      <b>From</b> {{ movie().first_air_date}}
+      <b>to</b> {{movie().last_air_date}}
+    </div>
+    <div class="details-rating-row">
+      <span class="details-stars">
+        @for (i of getStarCount(); track i) {
+        <i class="pi pi-star" [class.filled]="i < getFilledStars()"></i>
+        }
+      </span>
+      <span class="details-votes">{{ movie().vote_average /2 }}</span>
+      <a (click)="onClickFavorite()" class="fav-link">
+        @if(isFavorite()){
+        <i class="pi pi-heart-fill favorite-icon clicked"></i>
+        }@else {
+        <i class="pi pi-heart-fill favorite-icon"></i>
+        }
+      </a>
+    </div>
+    <div class="details-overview">{{ movie().overview }}</div>
+    <div class="details-genres">
+      @for (genre of movie().genres; track genre) {
+      <span class="genre-chip">{{ genre.name }}</span>
+      }
+    </div>
+    <div class="details-meta">
+      <span><b>Number of seasons:</b> {{ movie().number_of_seasons }}</span>
+      <b>Languages:</b>
+      @for (lang of movie().spoken_languages; track lang) {
+      <span> {{lang.english_name }}</span>
+      }
+    </div>
+    <div class="details-studios">
+      @for (studio of movie().studios; track studio) {
+      <img [src]="studio.logo_path" [alt]="studio.name" class="studio-logo" />
+      }
+    </div>
+    <div class="production-logos">
+      @for (prod of movie().production_companies; track prod) { @if
+      (prod.logo_path) {
+      <div class="production-logo-wrap">
+        <img
+          [src]="'https://image.tmdb.org/t/p/w500/' + prod.logo_path"
+          [alt]="prod.name"
+          class="production-logo"
+        />
+      </div>
+      } }
+    </div>
+    @if (movie().homepage) {
+    <a class="details-website" [href]="movie().homepage" target="_blank">
+      <i class="pi pi-external-link"></i>Website
+    </a>
+    }
+  </div>
+</div>

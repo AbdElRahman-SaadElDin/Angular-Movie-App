@@ -1,0 +1,70 @@
+$primary-color: #ffe353;
+$bg-color: #121212;
+$text-color: #fff;
+$btn-color: #292929;
+$btn-hover: lighten($primary-color, 10%);
+
+.not-found-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999999; // highest z-index
+  background-color: $bg-color;
+  color: $text-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.container {
+  text-align: center;
+
+  .error-code {
+    font-size: 10rem;
+    font-weight: 900;
+    color: $primary-color;
+    animation: bounce 1.5s infinite;
+  }
+
+  .message {
+    font-size: 2rem;
+    margin-top: -1rem;
+    font-weight: 600;
+  }
+
+  .description {
+    font-size: 1rem;
+    color: lighten($text-color, 30%);
+    margin: 1rem 0 2rem;
+  }
+
+  .home-btn {
+    background: $primary-color;
+    color: $bg-color;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+    box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+
+    &:hover {
+      background: $btn-hover;
+      box-shadow: 0 0 20px rgba(255, 204, 0, 0.8);
+    }
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}

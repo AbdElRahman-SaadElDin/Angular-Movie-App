@@ -1,9 +1,12 @@
+@if (favoriteMovies().length > 0 || favoriteTv().length > 0) {
 <section class="watchlist">
   <h1 class="watchlist-title">Watch list</h1>
+  @if (favoriteMovies().length > 0) {
   <div class="watchlist-grid">
+    <h2 class="watchlist-title">Movies</h2>
     @for (movie of favoriteMovies(); track movie) {
     <div class="custom-card">
-      <div class="custom-card-img">
+      <div class="custom-card-img" [routerLink]="['/Details', movie.id]">
         <img
           [src]="'https://image.tmdb.org/t/p/w500/' + movie.poster_path"
           [alt]="movie.title"
@@ -12,9 +15,9 @@
       <div class="custom-card-content">
         <div class="custom-card-header">
           <h2>{{ movie.title }}</h2>
-          <button class="delete-btn">
+          <a class="delete-btn" (click)="onClickRemove(movie.id)">
             <i class="pi pi-trash"></i>
-          </button>
+          </a>
         </div>
         <div class="custom-card-date">{{ movie.release_date }}</div>
         <div class="custom-card-rating">
@@ -22,9 +25,11 @@
             <div class="stars">
               @for (i of [0,1,2,3,4]; track i) {
               <div
-                class="star"
+                class="pi-heart-fill star"
                 [style.--fill]="getStarFill(i, movie) + '%'"
-              ></div>
+              >
+                ★
+              </div>
               }
             </div>
           </span>
@@ -32,26 +37,64 @@
             >{{ (movie.vote_average / 2).toFixed(2) }}</span
           >
         </div>
-        <ng-template #t let-fill="fill">
-          <i class="bi-star-fill">
-            @if (fill > 0) {
-            <i class="bi-star-fill filled" [style.width.%]="fill"></i>
-            }
-          </i>
-        </ng-template>
-
-        <ngb-rating
-          [rate]="rating() ?? 0"
-          [starTemplate]="t"
-          [readonly]="true"
-          [max]="5"
-          [ariaValueText]="ariaValueText"
-        />
-
-        <span class="ms-3"><b>{{ (rating() ?? 0 ).toFixed(2) }}</b></span>
         <div class="custom-card-desc">{{ movie.overview }}</div>
       </div>
     </div>
     }
   </div>
+  } @if (favoriteTv().length > 0) {
+  <div class="watchlist-grid">
+    <h2 class="watchlist-title">Tv Shows</h2>
+    @for (tv of favoriteTv(); track tv) {
+    <div class="custom-card">
+      <div class="custom-card-img" [routerLink]="['/TvDetails', tv.id]">
+        <img
+          [src]="'https://image.tmdb.org/t/p/w500/' + tv.poster_path"
+          [alt]="tv.name"
+        />
+      </div>
+      <div class="custom-card-content">
+        <div class="custom-card-header">
+          <h2>{{ tv.name }}</h2>
+          <a class="delete-btn" (click)="onClickRemove(tv.id)">
+            <i class="pi pi-trash"></i>
+          </a>
+        </div>
+        <div class="custom-card-date">{{ tv.first_air_date }}</div>
+        <div class="custom-card-rating">
+          <span class="stars">
+            <div class="stars">
+              @for (i of [0,1,2,3,4]; track i) {
+              <div
+                class="pi-heart-fill star"
+                [style.--fill]="getStarFill(i, tv) + '%'"
+              >
+                ★
+              </div>
+              }
+            </div>
+          </span>
+          <span class="rating-value"
+            >{{ (tv.vote_average / 2).toFixed(2) }}</span
+          >
+        </div>
+        <div class="custom-card-desc">{{ tv.overview }}</div>
+      </div>
+    </div>
+    }
+  </div>
+  }
 </section>
+} @else {
+<section class="watchlist">
+  <h1 class="watchlist-title">Watch list</h1>
+  <div class="empty-watchlist">
+    <div class="empty-content">
+      <img src="Group.png" alt="No Movies" class="empty-img" />
+      <!-- <i class="fa-solid fa-heart-crack empty-img"></i> -->
+      <div class="empty-text">No Movies in watch list</div>
+      <a class="back-home-btn" href="/">Back to home</a>
+    </div>
+  </div>
+</section>
+}

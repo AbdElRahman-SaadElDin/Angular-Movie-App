@@ -11,12 +11,12 @@ import { WatchList } from '../../services/watch-list.service';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-movie-card',
+  selector: 'app-tv-card',
   imports: [CardModule, RouterLink],
-  templateUrl: './movie-card.html',
-  styleUrl: './movie-card.scss',
+  templateUrl: './tv-card.html',
+  styleUrl: './tv-card.scss',
 })
-export class MovieCard implements OnInit {
+export class TvCard implements OnInit {
   movie = input<any>();
   votePercent = signal<number>(0);
   private watchList = inject(WatchList);
@@ -36,16 +36,16 @@ export class MovieCard implements OnInit {
 
   isFavorite = computed(() => {
     return this.watchList
-      .watchItems()
+      .watchTvItems()
       .some((item) => item.id === this.movie().id);
   });
 
   onClickFavorite() {
     if (this.isFavorite()) {
-      this.watchList.removeWatchList(this.movie().id);
+      this.watchList.removeTvWatchList(this.movie().id);
       console.log(this.movie().title, 'Removed');
     } else {
-      this.watchList.addWatchList(this.movie());
+      this.watchList.addTvWatchList(this.movie());
       console.log(this.movie().title, 'Added');
     }
   }

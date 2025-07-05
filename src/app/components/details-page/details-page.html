@@ -1,0 +1,121 @@
+<section class="details-section">
+  <div class="details-container">
+    <div class="details-poster">
+      <img
+        [src]="'https://image.tmdb.org/t/p/w500/' + movie().poster_path"
+        [alt]="movie().title"
+      />
+    </div>
+    <div class="details-content">
+      <h1 class="details-title">{{ movie().title }}</h1>
+      <div class="details-date">
+        {{ movie().release_date | date:'MMM dd, yyyy' }}
+      </div>
+      <div class="details-rating-row">
+        <span class="details-stars">
+          @for (i of getStarCount(); track i) {
+          <i class="pi pi-star" [class.filled]="i < getFilledStars()"></i>
+          }
+        </span>
+        <span class="details-votes">{{ movie().vote_average /2 }}</span>
+        <a (click)="onClickFavorite()" class="fav-link">
+          @if(isFavorite()){
+          <i class="pi pi-heart-fill favorite-icon clicked"></i>
+          }@else {
+          <i class="pi pi-heart-fill favorite-icon"></i>
+          }
+        </a>
+      </div>
+      <div class="details-overview">{{ movie().overview }}</div>
+      <div class="details-genres">
+        @for (genre of movie().genres; track genre) {
+        <span class="genre-chip">{{ genre.name }}</span>
+        }
+      </div>
+      <div class="details-meta">
+        <span><b>Duration:</b> {{ movie().runtime }} Min.</span>
+        <b>Languages:</b>
+        @for (lang of movie().spoken_languages; track lang) {
+        <span> {{lang.english_name }}</span>
+        }
+      </div>
+      <div class="details-studios">
+        @for (studio of movie().studios; track studio) {
+        <img [src]="studio.logo_path" [alt]="studio.name" class="studio-logo" />
+        }
+      </div>
+      <div class="production-logos">
+        @for (prod of movie().production_companies; track prod) { @if
+        (prod.logo_path) {
+        <div class="production-logo-wrap">
+          <img
+            [src]="'https://image.tmdb.org/t/p/w500/' + prod.logo_path"
+            [alt]="prod.name"
+            class="production-logo"
+          />
+        </div>
+        } }
+      </div>
+      @if (movie().homepage) {
+      <a class="details-website" [href]="movie().homepage" target="_blank">
+        <i class="pi pi-external-link"></i>Website
+      </a>
+
+      }
+    </div>
+  </div>
+
+  <div class="reviews-container">
+    <h2 class="card">Movie Reviews</h2>
+    @if (reviews().length > 0) { @for(review of reviews(); track review) {
+    <div class="card">
+      <p-panel [toggleable]="true">
+        <ng-template #header>
+          <div class="flex items-center gap-2">
+            @if (review.author_details.avatar_path) {
+            <p-avatar
+              [image]="'https://image.tmdb.org/t/p/w500/' + review.author_details.avatar_path"
+              shape="circle"
+            />
+            } @else {
+            <p-avatar
+              [image]='"https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"'
+              shape="circle"
+            />
+            }
+            <span class="font-bold">{{review.author}}</span>
+          </div>
+        </ng-template>
+        <ng-template #footer>
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            <span class="text-surface-500 dark:text-surface-400">
+              {{ review.updated_at | date:'yyyy-MM-dd' }}
+            </span>
+          </div>
+        </ng-template>
+        <ng-template #icons>
+          <p-menu #menu id="config_menu" [popup]="true" />
+        </ng-template>
+        <p class="m-0">{{review.content}}</p>
+      </p-panel>
+    </div>
+    } }@else {
+    <h2 class="card">No Reviews Yet</h2>
+    }
+  </div>
+
+  <div class="recommends-container">
+    @if (recommend().length > 0) {
+    <div class="movies-container">
+      <h1 class="title card">Recommended Movies</h1>
+      <div class="movies">
+        @for (rec of recommend(); track rec) {
+        <app-movie-card [movie]="rec"></app-movie-card>
+        }
+      </div>
+    </div>
+    }@else {
+    <h2 class="card">No Recommended Movies</h2>
+    }
+  </div>
+</section>

@@ -12,6 +12,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
+  margin-bottom: 2rem;
 }
 
 .custom-card {
@@ -30,6 +31,9 @@
   object-fit: cover;
   border-radius: 16px;
   box-shadow: 0 2px 8px 0 #0002;
+  &:hover {
+    cursor: pointer;
+  }
 }
 .custom-card-content {
   flex: 1;
@@ -105,42 +109,82 @@
 .stars {
   display: flex;
   align-items: center;
-  gap: 4px;
+  font-size: 40px;
+  gap: 2px;
+  margin: 0;
 }
 
 .star {
   width: 24px;
   height: 24px;
-  background: linear-gradient(to right, gold var(--fill, 0%), #ccc 0%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-size: 24px;
-  content: "★";
   display: inline-block;
-  position: relative;
-}
 
+  color: #ccc;
+  position: relative;
+  line-height: 1;
+  overflow: hidden;
+}
 .star::before {
   content: "★";
+  color: #ffd600;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--fill, 0%);
+  overflow: hidden;
+  white-space: nowrap;
+  z-index: 1;
+}
+.star {
+  color: #ccc;
+  z-index: 0;
 }
 .rating {
   margin-left: 8px;
   font-weight: bold;
 }
 
-i {
-  position: relative;
-  display: inline-block;
-  font-size: 1.5rem;
-  padding-right: 0.1rem;
-  color: #d3d3d3;
+.empty-watchlist {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
 }
 
-.filled {
-  color: gold;
-  overflow: hidden;
-  position: absolute;
-  top: 0;
-  left: 0;
+.empty-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.empty-img {
+  width: 13.75rem;
+  height: 13.75rem;
+  object-fit: contain;
+  margin-bottom: 2rem;
+}
+
+.empty-text {
+  font-size: 2rem;
+  color: #222;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.back-home-btn {
+  background: #ffe353;
+  color: #222;
+  font-size: 1.25rem;
+  padding: 1rem 3rem;
+  border-radius: 16px;
+  text-decoration: none;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: background 0.2s;
+  margin-top: 1rem;
+}
+.back-home-btn:hover {
+  background: #ecc501;
 }

@@ -17,4 +17,28 @@ export const routes: Routes = [
         (m) => m.WatchlistPage
       ),
   },
+  {
+    path: 'Details/:id',
+    loadComponent: () =>
+      import('./components/details-page/details-page').then(
+        (m) => m.DetailsPage
+      ),
+  },
+  {
+    path: 'TV',
+    loadComponent: () =>
+      import('./components/tvshows/tvshows').then((m) => m.TVshows),
+  },
+  {
+    path: 'TvDetails/:tvId',
+    loadComponent: () =>
+      import('./components/details-tv/details-tv').then((m) => m.DetailsTV),
+  },
+  {
+    path: '**',
+    loadComponent: () =>
+      import('./components/notfound-page/notfound-page').then(
+        (m) => m.NotfoundPage
+      ),
+  },
 ];

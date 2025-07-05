@@ -23,10 +23,10 @@
   </div>
 
   <div class="movies-container">
-    <h1 class="title">Now Playing</h1>
+    <h1 class="title">Now Playing TV Shows</h1>
     <div class="movies">
       @for (movie of movies(); track movie) {
-      <app-movie-card [movie]="movie"></app-movie-card>
+      <app-tv-card [movie]="movie"></app-tv-card>
       }
     </div>
   </div>

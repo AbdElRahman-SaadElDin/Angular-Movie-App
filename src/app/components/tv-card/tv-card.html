@@ -1,5 +1,5 @@
 <p-card class="movie-card" [style]="{ width: '14rem' }">
-  <div class="card-image" [routerLink]="['/Details', movie().id]">
+  <div class="card-image" [routerLink]="['/TvDetails', movie().id]">
     <img
       [src]="'https://image.tmdb.org/t/p/w500/' + movie().poster_path"
       [alt]="movie().title"
@@ -26,8 +26,8 @@
   <div class="card-content">
     <div class="info-with-fav">
       <div class="info">
-        <h3>{{movie().title}}</h3>
-        <p class="release-date">{{movie().release_date}}</p>
+        <h3>{{movie().name}}</h3>
+        <p class="release-date">{{movie().first_air_date}}</p>
       </div>
       <a (click)="onClickFavorite()" class="fav-link">
         @if(isFavorite()){

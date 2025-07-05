@@ -1,11 +1,53 @@
-<p-menubar [model]="items()" class="navbar-menubar">
-  <ng-template pTemplate="end">
-    <a class="watchlist-badge" [routerLink]="['/watchlist']">
-      <i class="pi pi-heart-fill"></i>
-      <span>watchlist</span>
-      @if (watchList.watchCount() > 0) {
-      <span class="p-badge">{{watchList.watchCount()}}</span>
-      }
-    </a>
-  </ng-template>
-</p-menubar>
+<nav class="navbar-menubar">
+  <ul class="navbar-list">
+    <li class="navbar-item">
+      <a [routerLink]="['']"> <i class="pi pi-home"></i>Home </a>
+    </li>
+    <li class="navbar-item">
+      <a
+        [routerLink]="['']"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <i class="pi pi-video"></i>Movies
+      </a>
+    </li>
+    <li [routerLink]="['TV']" class="navbar-item">
+      <a routerLinkActive="active"> <i class="pi pi-desktop"></i>TV Shows </a>
+    </li>
+
+    <li class="navbar-item">
+      <div class="dropdown">
+        <button class="btn btn-lang" type="button">
+          <i class="pi pi-language"></i>
+          {{ selectedLangLabel }}
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li *ngFor="let lang of languages">
+            <a
+              href="#"
+              (click)="changeLanguage(lang.code, $event)"
+              [class.selected]="selectedLang === lang.code"
+              >{{ lang.label }}</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+
+    <li class="navbar-item navbar-end">
+      <a
+        class="watchlist-badge"
+        [routerLink]="['/watchlist']"
+        routerLinkActive="active"
+      >
+        <i class="pi pi-heart-fill"></i>
+        <span>watchlist</span>
+        @if (watchList.watchCount() > 0) {
+        <span class="p-badge">{{watchList.watchCount()}}</span>
+        }
+      </a>
+    </li>
+  </ul>
+</nav>

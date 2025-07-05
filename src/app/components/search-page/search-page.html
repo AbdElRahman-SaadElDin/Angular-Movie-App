@@ -20,7 +20,7 @@
 
   <div class="movies-container">
     @if (movies().length > 0) {
-    <h1 class="title">Search result for: {{value()}}</h1>
+    <h1 class="title">Search result for: {{localQuery()}}</h1>
     } @else {
     <h1 class="title">Not Found</h1>
     }
