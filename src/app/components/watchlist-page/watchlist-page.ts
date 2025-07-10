@@ -1,5 +1,4 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-// import { NgFor } from '@angular/common';
 import { WatchList } from '../../services/watch-list.service';
 import { RouterLink } from '@angular/router';
 
@@ -14,18 +13,23 @@ export class WatchlistPage implements OnInit {
   favoriteMovies = signal<any[]>([]);
   favoriteTv = signal<any[]>([]);
 
-  getStarFill(index: number, movie: any): number {
-    const rating = movie.vote_average / 2;
-    const full = Math.floor(rating);
-    const partial = rating - full;
-
-    if (index < full) {
-      return 100;
-    } else if (index === full) {
-      return partial * 100;
+  getStarFill(starIndex: number, rating: number): string {
+    const normalizedRating = rating / 2; // Assuming the rating is out of 10
+    if (starIndex <= normalizedRating) {
+      return '100%';
+    } else if (
+      starIndex > normalizedRating &&
+      starIndex - 1 < normalizedRating
+    ) {
+      const fillPercentage = (normalizedRating % 1) * 100;
+      return `${fillPercentage}%`;
     } else {
-      return 0;
+      return '0%';
     }
+  }
+
+  get starIndexes(): number[] {
+    return [0, 1, 2, 3, 4];
   }
 
   onClickRemove(id: number) {

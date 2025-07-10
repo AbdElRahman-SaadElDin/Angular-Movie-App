@@ -115,29 +115,16 @@
 }
 
 .star {
-  width: 24px;
-  height: 24px;
-  display: inline-block;
-
-  color: #ccc;
+  color: #ddd;
   position: relative;
-  line-height: 1;
-  overflow: hidden;
 }
+
 .star::before {
   content: "★";
-  color: #ffd600;
   position: absolute;
-  left: 0;
-  top: 0;
-  width: var(--fill, 0%);
+  color: gold;
+  width: var(--fill);
   overflow: hidden;
-  white-space: nowrap;
-  z-index: 1;
-}
-.star {
-  color: #ccc;
-  z-index: 0;
 }
 .rating {
   margin-left: 8px;

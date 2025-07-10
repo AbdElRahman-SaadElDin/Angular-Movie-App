@@ -21,18 +21,15 @@
         </div>
         <div class="custom-card-date">{{ movie.release_date }}</div>
         <div class="custom-card-rating">
-          <span class="stars">
-            <div class="stars">
-              @for (i of [0,1,2,3,4]; track i) {
-              <div
-                class="pi-heart-fill star"
-                [style.--fill]="getStarFill(i, movie) + '%'"
-              >
-                ★
-              </div>
-              }
-            </div>
-          </span>
+          <div class="stars">
+            @for (i of [1, 2, 3, 4, 5]; track i) {
+            <span
+              class="star"
+              [style.--fill]="getStarFill(i, movie.vote_average)"
+              >★</span
+            >
+            }
+          </div>
           <span class="rating-value"
             >{{ (movie.vote_average / 2).toFixed(2) }}</span
           >
@@ -64,13 +61,12 @@
         <div class="custom-card-rating">
           <span class="stars">
             <div class="stars">
-              @for (i of [0,1,2,3,4]; track i) {
-              <div
-                class="pi-heart-fill star"
-                [style.--fill]="getStarFill(i, tv) + '%'"
+              @for (i of [1, 2, 3, 4, 5]; track i) {
+              <span
+                class="star"
+                [style.--fill]="getStarFill(i, tv.vote_average)"
+                >★</span
               >
-                ★
-              </div>
               }
             </div>
           </span>
@@ -91,9 +87,8 @@
   <div class="empty-watchlist">
     <div class="empty-content">
       <img src="Group.png" alt="No Movies" class="empty-img" />
-      <!-- <i class="fa-solid fa-heart-crack empty-img"></i> -->
       <div class="empty-text">No Movies in watch list</div>
-      <a class="back-home-btn" href="/">Back to home</a>
+      <a class="back-home-btn" routerLink="/">Back to home</a>
     </div>
   </div>
 </section>
